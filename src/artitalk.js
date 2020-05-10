@@ -106,7 +106,7 @@
                 const resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
                 const resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
                 var li=document.createElement('li');
-                var cc="<li><span class=\"shuoshuo_author_img\"><img src=\""+img+"\"class=\"avatar avatar-48\" width=\"48\" height=\"48\"></span><span class=\"cbp_tmlabel\" ><p></p><p>"+uncle+"</p><p></p><p class=\"shuoshuo_time\">"+"<span style=\"float:left;\"><i class=\"fas fa-user-edit\"></i>由   "+OS+"发表</span><span style=\"float:right;\"><i class=\"fa fa-clock-o\"></i>"+" "+ resDate+" "+resTime+"     "+"<i class=\"fas fa-map-marked-alt\"></i> "+posti+"</p></span></span></li>"
+                var cc="<li><span class=\"shuoshuo_author_img\"><img src=\""+img+"\"class=\"avatar avatar-48\" width=\"48\" height=\"48\"></span><span class=\"cbp_tmlabel\" ><p></p><p>"+uncle+"</p><p></p><p class=\"shuoshuo_time\">"+"<span style=\"float:left;\"><i class=\"fas fa-user-edit\"></i>由   "+OS+"发表</span><span style=\"float:right;\"><i class=\"fa fa-clock-o\"></i>"+" "+ resDate+" "+resTime+"     "+"</p></span></span></li>"
                 string+=cc;
             })
             string+='</ul>';
