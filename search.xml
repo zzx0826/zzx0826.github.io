@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>DP例题</title>
+      <link href="/archives/dp-problem.html"/>
+      <url>/archives/dp-problem.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="奇怪的银行"><a href="#奇怪的银行" class="headerlink" title="奇怪的银行"></a>奇怪的银行</h2><h3 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h3><p>某银行因不明原因，突然限制客户取钱，限制客户一次操作只能取下列情况之一的金额：</p><ul><li><p>$ 1 $元</p></li><li><p>$ 6 $元, $ 6^{2} $元, $ 6^{3} $元…</p></li><li><p>$ 9 $元, $ 9^{2} $元, $ 9^{3} $元…</p></li></ul><p>至少需要多少次操作才能取出$N$($1\leq N \leq 100000$)元。不允许边存边取。</p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>通过简单的计算，我们不难推出最多取$7$次，就一定能取完。</p><p>设$f[i]$为取$i$元钱至少要的操作次数。</p><p>那么$f[i]$一定是有上一个再取$1$或$6^{k}$或$9^{k}$元得到的。</p><p>转移方程:$f[i]=\begin{cases}min(f[i-sum1]+1,f[i])\min(f[i-sum2]+1,f[i])\min(f[i],f[i-1]+1)\end{cases}$</p><p>Code:</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)f[i] = inf;</span><br><span class="line">f[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">f[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">int</span> sum1 = <span class="number">6</span>,sum2 = <span class="number">9</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="number">7</span>;j++)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span>(i - sum1 &gt;= <span class="number">0</span>)f[i] = min(f[i - sum1] + <span class="number">1</span>,f[i]);</span><br><span class="line"><span class="keyword">if</span>(i - sum2 &gt;= <span class="number">0</span>)f[i] = min(f[i - sum2] + <span class="number">1</span>,f[i]);</span><br><span class="line">f[i] = min(f[i],f[i - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">sum1 *= <span class="number">6</span>,sum2 *= <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="序列涂色"><a href="#序列涂色" class="headerlink" title="序列涂色"></a>序列涂色</h2><h3 id="题面-1"><a href="#题面-1" class="headerlink" title="题面"></a>题面</h3><p>给你一个长度为$N$的序列:$A={A_{1},A_{2},…,A_{N}}$,对于$N$个整数,我们可以为每一个整数涂上颜色。但要求满足下面这个条件：</p><p>如果$A_{i}$与$A_{j}(i&lt;j)$被涂上同一种颜色，那一定满足$A_{i}&lt;A_{j}$</p><p>找到满足上述条件的最小颜色数。</p><p>$1 \leq N \leq 10^5$,$0 \leq A_i \leq 10^9$</p><h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>这题思路很明确。。。</p><p>设$f[i]$为前$i$个数所涂的最小颜色数，$f[i]=min(f[i],f[j]+1)(a[i]&lt;a[j],i&lt;j)$</p><p>$10^{5}$的数据你去跑呀。。。</p><p>这道题再加个二分即可，如果$f[mid]&lt;a[i]$,那么我们应该往左边找；如果$f[mid] &gt; a[i]$我们就应该往右找。</p><p>Code:</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">l = <span class="number">1</span>,r = cnt,m = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(l &lt;= r)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(f[mid] &lt; a[i])</span><br><span class="line">&#123;</span><br><span class="line">flag = mid;</span><br><span class="line">r = mid - <span class="number">1</span>,m = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> l = mid + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(!m)f[++cnt] = a[i];</span><br><span class="line"><span class="keyword">else</span> f[flag] = a[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> c++ </category>
+          
+          <category> dp </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> c++ </tag>
+            
+            <tag> dp </tag>
+            
+            <tag> 例题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>DP专题</title>
       <link href="/archives/dp.html"/>
       <url>/archives/dp.html</url>
@@ -88,9 +119,9 @@
             
             <tag> c++ </tag>
             
-            <tag> 题解 </tag>
-            
             <tag> NKOJ </tag>
+            
+            <tag> 题解 </tag>
             
             <tag> 笔记 </tag>
             
@@ -301,9 +332,9 @@
             
             <tag> c++ </tag>
             
-            <tag> 洛谷 </tag>
-            
             <tag> 题解 </tag>
+            
+            <tag> 洛谷 </tag>
             
         </tags>
       
